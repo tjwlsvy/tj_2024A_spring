@@ -2,20 +2,19 @@ console.log('phonebook.js 열림')
 
 let phonebookDB = [ ]
 // 1. 등록함수 : 등록버튼을 눌렀을때.
-function postPhone(){
+ function postPhone(){
     // 1. 입력받고
-    let name = document.querySelector('#name').value;
+    let name = document.querySelector('#name').value;   // html로 입력받은거 갖고오기
     let phone = document.querySelector('#phone').value;
 
     // 2. 객체화
     let phoneDto = {name : name , phone : phone}
 
     // 3. 배열저장
-    phonebookDB.push(phoneDto)
+     phonebookDB.push(phoneDto)  // 컨트롤에게 통신
 
     // 4. 안내/새로고침
-    alert('save');
-    getPhone();
+     alert('save');getPhone();
 
 
 }

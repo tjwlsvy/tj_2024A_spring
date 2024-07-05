@@ -31,10 +31,10 @@ public class PhoneView {
     }   // r end
     // 1. 이름과 번호를 입력받아 두 입력값을 객체(dto)화 해서 컨트롤에게 매개변수로 전달후 boolean 결과를 받아 출력문을 처리한다.
     public void postPhone(){
-        System.out.println(">> name : "); String name = scan.next();
+        System.out.println(">> name : "); String name = scan.next();    // scan 으로 입력받은거 갖고오기
         System.out.println(">> phone :"); String phone = scan.next();
 
-        PhoneDto phoneDto = new PhoneDto(0,name,phone);
+        PhoneDto phoneDto = new PhoneDto(0,name,phone); // 객체화
         boolean result = PhoneController.getInstance().postPhone(phoneDto);
         if (result){
             System.out.println(">> save");}
