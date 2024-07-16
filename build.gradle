@@ -18,12 +18,22 @@ repositories {
 }
 
 dependencies {
-    // springboot web 라이브러리
+    // [1] springboot web 라이브러리
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    // mysql 라이브러리
+    // [2] mysql 라이브러리
     runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // [3] jsp 파일 매핑 라이브러리
+    // implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
+
+    // [4] 타임리프 템플릿 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // [5] lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
