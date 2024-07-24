@@ -37,5 +37,22 @@ public class ViewController {
     @GetMapping("/member/leave")
     public String mLeave(){ return "/member/leave.html"; }
 
+    @GetMapping("/board/all")
+    public String boardAllPrint(){
+        return "/board/all.html";
+    }
+
+    @GetMapping("/board/write")
+    public String boardWrite(){
+        return "/board/write.html";
+    }
+    @GetMapping("/board/detail")
+    public String boardDetail(){
+        return "/board/detail.html";
+    }
+    @GetMapping("/board/update")
+    public String boardUpdate(){
+        return "/board/update.html";
+    }
 
 }
