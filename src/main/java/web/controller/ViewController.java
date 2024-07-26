@@ -37,22 +37,20 @@ public class ViewController {
     @GetMapping("/member/leave")
     public String mLeave(){ return "/member/leave.html"; }
 
-    @GetMapping("/board/all")
-    public String boardAllPrint(){
-        return "/board/all.html";
-    }
 
-    @GetMapping("/board/write")
-    public String boardWrite(){
-        return "/board/write.html";
-    }
-    @GetMapping("/board/detail")
-    public String boardDetail(){
-        return "/board/detail.html";
-    }
-    @GetMapping("/board/update")
-    public String boardUpdate(){
-        return "/board/update.html";
-    }
+
+    // ======== [3] 게시판 관련 =================== //
+    @GetMapping("/board")   // 전체 게시물 페이지
+    public String board(){  return "/board/board.html";   }
+
+    @GetMapping("/board/write") // 게시물 쓰기 페이지
+    public String bWrite(){  return "/board/write.html";   }
+
+    @GetMapping("/board/update") // 게시물 수정 페이지
+    public String bUpdate(){  return "/board/update.html";   }
+
+    @GetMapping("/board/view") // 게시물 상세 페이지
+    public String bView(){  return "/board/view.html";   }
+
 
 }
