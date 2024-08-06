@@ -23,13 +23,85 @@ function doBoardFindBno( bno ){
         success : r => { console.log(r); board = r} // 응답 받은 데이터을 ajax 밖 변수에 대입
     }) // AJAX END
     document.querySelector('.bcName').innerHTML = `${ board.bcname }`;
-    document.querySelector('.etcBox').innerHTML = `${ board.id } / ${ board.bview } / ${ board.bdate }`;
+    document.querySelector('.etcBox').innerHTML = `<span> 작성자 ${ board.id } </span> 
+                                                    <span> 조회수 ${ board.bview } </span> 
+                                                    <span> 작성일 ${ board.bdate } </span>`;
+                                                    
     document.querySelector('.bTitle').innerHTML = `${ board.btitle }`;
     document.querySelector('.bContent').innerHTML = `${ board.bcontent }`;
-    document.querySelector('.bFile').innerHTML = `${ board.bfile } <a href="/file/download?filename=${ board.bfile }">다운로드</a>`;
+
+    if( board.bfile == null ){ // - 첨부파일이 없을때
+        document.querySelector('.bFile').innerHTML = '';
+    }else{  // - 첨부파일이 있을때
+        document.querySelector('.bFile').innerHTML = `${ board.bfile.split('_')[1] } <a href="/file/download?filename=${ board.bfile }">다운로드</a>`;
+    }
+
     document.querySelector('.btnBox').innerHTML =
             `
-            <button type="button" onclick="location.href='/board/update?bno=${bno}'">수정</button>
-            <button type="button" onclick="doBoardDelete(${bno})">삭제</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='/board/update?bno=${bno}'">수정</button>
+            <button type="button" class="btn btn-primary" onclick="doBoardDelete(${bno})">삭제</button>
             `;
 }
+
+
+// 2. 댓글 쓰기
+function onReplyWrite(){ console.log('onReplyWrite');
+
+    // 1. 입력받은 값 가져오기
+    let brcontent = document.querySelector('.brcontent').value
+
+    // 2. 객체화
+    let info = {
+    brindex : 0 , // 댓글분류 ,  0 이면 상위댓글
+    brcontent : brcontent ,
+    bno : bno   // 현재 보고있는 게시물 번호(view.js 상단에서 선언된 변수)
+    }
+
+    $.ajax({
+        async : false ,
+        method : 'post' ,
+        url : "/board/reply/write" ,
+        data : JSON.stringify(info) ,       // 왜 ? JSON.stringify 사용하는지 ?
+        contentType : "application/json" ,  // 왜? application/json 사용하는지 ?
+             // - contentType : "application/x-www-form-urlencoded" : ajax 기본값(생략시 )
+             // - contentType : false  , --> multipart/form-data 첨부파일( 바이너리 )
+             // - contentType : "application/json"
+        success : r => {console.log(r);
+            if(r == true){
+                alert('댓글쓰기 성공');
+            }else{
+                alert('댓글쓰기 실패 : 로그인 후 가능합니다.');
+            }
+
+        } // success end
+    }); // ajax end
+}   // onReplyWrite end
+
+// 3. 댓글 출력
+PrintBox()
+function PrintBox(){
+    let html = ``;
+    let PrintBox = document.querySelector('.PrintBox')
+    $.ajax({
+        async : false ,
+        method : 'get' ,
+        url : '/board/reply/print' ,
+        data : { bno : bno } ,
+        success : r =>{console.log(r);
+            r.forEach(f =>{
+                html += `
+                    <div>${f.brno}</div>
+                    <div>${f.brcontent}</div>
+                    <div>${f.brdate}</div>
+                    `
+            });
+        }
+    });
+    PrintBox.innerHTML = html;
+}
+
+
+
+
+
+

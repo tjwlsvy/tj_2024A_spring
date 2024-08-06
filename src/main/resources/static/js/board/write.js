@@ -1,5 +1,16 @@
 console.log( "write.js" )
 
+// * 로그인상태 체크
+$.ajax({
+    async : false , method : 'get' , url : '/member/login/check' ,
+    success : r => {
+        if( r == '' ){
+            alert('로그인된 회원만 가능합니다.');
+            location.href="/member/login"
+        }
+    }
+});
+
 // 1. 카테고리 호출 , 실행조건 : js열렸을때
 bcFindAll()
 function bcFindAll(){
@@ -75,6 +86,23 @@ function doBoardWrite() {
         error : (e)=>{ console.log(e); }
     })
 }
+
+// 3. 썸머노트 실행
+$(document).ready(function() {
+    // - 썸머노트 옵션
+    let option = {
+        height : 500 , // 에디터 높이
+        lang : 'ko-KR' // 도움말이 한글로 표기
+    }
+  $('#summernote').summernote( option );
+});
+
+
+
+
+
+
+
 
 
 

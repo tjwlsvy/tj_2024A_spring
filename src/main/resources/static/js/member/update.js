@@ -1,4 +1,4 @@
-console.log('update.js')
+console.log( 'update.js' )
 
 // 1. 내정보 호출
 doMyInfo();
@@ -51,6 +51,21 @@ function doUpdate(){ console.log( 'doUpdate()' )
     })
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

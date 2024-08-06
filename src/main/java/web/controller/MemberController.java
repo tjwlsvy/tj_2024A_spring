@@ -49,22 +49,22 @@ public class MemberController {
 
     // 아이디 중복검사
     @GetMapping("/idcheck")
-    public boolean mIdCheck( String id ) {
-        return memberService.mIdCheck(id);
+    public boolean mIdCheck( String id ){
+        return memberService.mIdCheck( id );
     }
-
-    // 탈퇴
+    // 회원 탈퇴
     @DeleteMapping("/leave")
-    public boolean mLeave(String pwConfirm){
-        return memberService.mLeave(pwConfirm);
+    public boolean mLeave( String pwConfirm ){
+        return memberService.mLeave( pwConfirm );
     }
-    // 수정
-    @PutMapping("update")
-     //public boolean mUpdate(@RequestBody MemberDto memberDto){
-        // MemberDto(no = 0 , id = mull , pw = 144 , name = 유재석 , email = null , phone = 001-1111-1111)
-    public boolean mUpdate(@RequestBody Map< String , String> map){
-        // {pw = 144 , newpw = 324234 , name = 유재석 , phone = 010-444-4444}
-        return memberService.mUpdate(map);
+    // 회원 수정
+    @PutMapping("/update")
+    //public boolean mUpdate( @RequestBody MemberDto memberDto ){
+            // MemberDto(no=0, id=null, pw=144, name=유재석, email=null, phone=010-4444-4444)
+    public boolean mUpdate(@RequestBody Map<String , String> map ){
+            // {pw=144, newPw=324234, name=유재석, phone=010-4444-4444}
+        System.out.println("map = " + map);
+        return memberService.mUpdate( map );
     }
 
 }

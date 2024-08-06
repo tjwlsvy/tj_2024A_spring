@@ -56,7 +56,6 @@ public class MemberDao extends Dao {
             }
         }catch (Exception e ){  System.out.println(e);  } return null;
     }
-
     // 6. 아이디 중복 검사 ( C *R U D )
     public boolean mIdCheck( String id ){  System.out.println("MemberDao.mIdCheck"); System.out.println("id = " + id);
         // sql는 대소문자를 구분하지 않고 검색 진행.
@@ -68,41 +67,47 @@ public class MemberDao extends Dao {
         }catch (Exception e ){ System.out.println(e); }
         return false; // 중복이 아니다.
     }
-
-
-    // 7. 탈퇴
-    public boolean mLeave(int loginNo , String pwConfirm){
-        try {
-            String sql = "delete from member where no = ? and pw = ?";
+    // [7]. 회원 탈퇴
+    public boolean mLeave( int loginNo , String pwConfirm ){
+        try{String sql ="delete from member where no = ? and pw = ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1 , loginNo);
-            ps.setString(2 , pwConfirm);
+            ps.setInt( 1 , loginNo );
+            ps.setString( 2, pwConfirm );
             int count = ps.executeUpdate();
-            if (count == 0 ) return true;
-
-        }catch (Exception e){ System.out.println(e);
-        }
+            if( count == 1 ) return true;
+        }catch (Exception e ){ System.out.println("e = " + e);}
         return false;
     }
-    // 8. 수정
-    public boolean mUpdate( Map< String , String> map){
-        try {
-            String sql = "update member set name = ? , pw = ? , phone = ? where no = ? and pw = ?;";
+    // [8]
+    public boolean mUpdate( Map<String , String> map ){
+        try{
+            String sql = "update member " +
+                    " set name = ? , pw = ? , phone = ? " +
+                    " where no = ? and pw = ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1 , map.get("name"));
-            ps.setString(2 , map.get("newPw"));
-            ps.setString(3 , map.get("phone"));
-            ps.setInt( 4 , Integer.parseInt(map.get("no")));
-            ps.setString(5 , map.get("pw"));
+            ps.setString( 1 , map.get("name") );
+            ps.setString( 2 , map.get("newPw") );
+            ps.setString( 3 , map.get("phone") );
+            ps.setInt( 4 , Integer.parseInt( map.get("no") ) );
+            ps.setString( 5 , map.get("pw") );
             int count = ps.executeUpdate();
-            if (count == 1){return true;}
-
-        }catch (Exception e){ System.out.println(e);
-        }return false;
+            if( count == 1 ) { return true; }
+        }catch (Exception e ){ System.out.println(e); }
+        return false;
     }
+}
 
 
-} // dao end
+
+
+
+
+
+
+
+
+
+
 
 
 
